@@ -17,8 +17,8 @@ public class CasoDF implements CasoData {
 
     public String casoToCSV(Caso caso){
         List<String> dataList = new ArrayList<>();
-        dataList.add(caso.getId().rut);
-        dataList.add(Integer.toString(caso.getId().iterador));
+        dataList.add(caso.getId().getRut());
+        dataList.add(Integer.toString(caso.getId().getIterador()));
         dataList.add(caso.getDescripcion());
         return Data.listToCSV(dataList);
     }
@@ -42,46 +42,49 @@ public class CasoDF implements CasoData {
     }
 
     public HashMap<IDcaso, Caso> getCaso(){
-        HashMap<IDcaso,Caso> caso = new HashMap<>();
+        HashMap<IDcaso,Caso> casos = new HashMap<>();
         List<String> data = this.datafile.getData();
         IDcaso id;
         String[] parts;
+        Caso caso;
         for (String csv: data){
             parts=csv.split(",");
             id=new IDcaso(parts[0],Integer.parseInt(parts[1]));
-            caso.put(id,casoFromCSV(csv));
+            caso =new Caso(id, parts[2]);
+            casos.put(id,casoFromCSV(csv));
         }
-        return caso;
+        return casos;
     }
 
     public HashMap<IDcaso,Caso> getCaso(String rutPaciente){
-        HashMap<IDcaso,Caso> caso=new HashMap<>();
+        HashMap<IDcaso,Caso> casos=new HashMap<>();
         List<String> data=this.datafile.getData();
         IDcaso id;
         String[] parts;
+        Caso caso;
         for (String csv:data){
             parts = csv.split(",");
             if (parts[0].equals(rutPaciente)){
                 id=new IDcaso(parts[0],Integer.parseInt(parts[1]));
-                caso.put(id,casoFromCSV(csv));
+                caso = new Caso(id,parts[2]);
+                casos.put(id,casoFromCSV(csv));
             }
         }
-        return caso;
+        return casos;
     }
 
-    public HashMap<IDcaso,Caso> getCaso(IDcaso iDcaso){
-        HashMap<IDcaso,Caso> caso=new HashMap<>();
+    public Caso getCaso(IDcaso iDcaso){
         List<String> data = this.datafile.getData();
         IDcaso id;
         String[] parts;
         for (String csv: data){
             parts=csv.split(",");
-            if ((csv.split(",")[0].equals(iDcaso.rut)) && (Short.parseShort(parts[1])==iDcaso.iterador)){
-                id=new IDcaso(parts[0],Short.parseShort(parts[1]));
-                caso.put(id,casoFromCSV(csv));
+            if ((csv.split(",")[0].equals(iDcaso.getRut())) && (Integer.parseInt(parts[1])==iDcaso.getIterador())){
+                id=new IDcaso(parts[0],Integer.parseInt(parts[1]));
+                return new Caso(id,parts[2]);
             }
         }
-        return caso;
+        return null;
     }
 
     public void insertarCaso(Caso caso){

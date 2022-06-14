@@ -7,10 +7,11 @@ import java.util.HashMap;
 
 public interface CasoData {
 
-    public Caso get(IDcaso id);
+    Caso get(IDcaso id);
+    Caso getCaso(String rut, int iterador);
     HashMap<IDcaso, Caso> getCaso();
     HashMap<IDcaso,Caso> getCaso(String rutPaciente);
-    HashMap<IDcaso,Caso> getCaso(IDcaso iDcaso);
+    Caso getCaso(IDcaso iDcaso);
     void insertarCaso(Caso caso);
     void actualizarCaso(Caso caso);
     void eliminarCaso(Caso caso);

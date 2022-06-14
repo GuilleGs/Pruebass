@@ -1,58 +1,33 @@
 package Menus;
 
-import Data.file.PacienteDF;
-import Modelos.Paciente;
-
 import java.util.Scanner;
 
 public class MenuPaciente {
 
-    public Paciente paciente=new Paciente();
-    public PacienteDF pacienteDF= new PacienteDF();
+    public void PacienteMenu() {
+        PacienteControlador pacienteControlador = new PacienteControlador();
+        int opt;
+        Scanner entrada = new Scanner(System.in);
+        do {
+            System.out.println();
+            System.out.println("    ----------- Menu -----------");
+            System.out.println(" (1) -> Ingresar Paciente");
+            System.out.println(" (2) -> Mostrar Paciente");
+            System.out.println(" (3) -> Eliminar Paciente");
+            System.out.println(" (4) -> Modificar Dato");
+            System.out.println(" (0) -> Salir");
+            opt = Integer.parseInt(entrada.nextLine());
+            if (opt == 1) {
+                pacienteControlador.generarPaciente();
+            }
+            if (opt == 2) {
+                pacienteControlador.imprimirPaciente();
+            }
 
-    public Paciente pacienteCreado(){
-        Scanner Entrada=new Scanner(System.in);
-        String rut,nombre,apPaterno,apMaterno,email,prevision;
-        int edad;
-        System.out.println("Rut");
-        rut=Entrada.nextLine();
-        System.out.println("Nombre:");
-        nombre=Entrada.nextLine();
-        System.out.println("Apellido Paterno");
-        apPaterno=Entrada.nextLine();
-        System.out.println("Apellido Materno");
-        apMaterno=Entrada.nextLine();
-        System.out.println("Edad");
-        edad=Integer.parseInt(Entrada.nextLine());
-        System.out.println("Email");
-        email=Entrada.nextLine();
-        System.out.println("Prevision");
-        prevision=Entrada.nextLine();
-        return new Paciente(rut,nombre,apPaterno,apMaterno,edad,email,prevision);
-    }
-
-    //Metodo que agrega un objeto profesionalSalud
-    public void generarPaciente(){
-        paciente = pacienteCreado();
-        pacienteDF.insertarPaciente(paciente);
-    }
-
-    public Paciente buscarPaciente(String rut){
-        paciente=pacienteDF.getPaciente(rut);
-        return paciente;
-    }
-
-    public void imprimirPaciente(){
-        String rut;
-        Scanner Entrada=new Scanner(System.in);
-        System.out.println("Ingrese el rut");
-        rut=Entrada.nextLine();
-        paciente=buscarPaciente(rut);
-        if (paciente!=null){
-            System.out.println(paciente.toString());
-            System.out.println("");
-        }
-        else
-            System.out.println("No existe esta persona");
+            if (opt > 4 || opt < 0)
+                System.out.println("Ingrese una opcion valida");
+        } while (opt != 0);
     }
 }
+
+

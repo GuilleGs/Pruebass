@@ -1,5 +1,6 @@
 package Modelos;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Paciente extends Persona {
@@ -17,7 +18,7 @@ public class Paciente extends Persona {
         super(rut, nombre, apPaterno, apMaterno, edad);
         this.email = email;
         this.prevision = prevision;
-        this.casos = casos;
+        this.casos = new HashMap<IDcaso,Caso>();
     }
 
     public Paciente() {
